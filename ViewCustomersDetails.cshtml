@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model CarDealer.Models.CustomersList
+
+@{
+    ViewBag.Title = "ViewCustomersDetails";
+}
+<style>
+    h2{
+        text-align:center;
+    }
+</style>
+
+<h2>Viewer Details</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="pull-right ui-button">
+            <a href="/Admin/AdminLogout">LOG OUT</a>
+        </div>
+        <br />
+        <br />
+        <p>Details of viewers, how liked the vehicels and left the details. Click on the CarID to get into details of the Vehicel, they are interested.</p>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayName("First Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Last Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Phone")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Email")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Contact by PHONE")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Contact by Email")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Viewed on(Date & Time)")
+                    </th>
+                    <th>
+                        @Html.DisplayName("CarId")
+                    </th>
+                    
+                </tr>
+
+                @foreach (var item in Model.customerlist)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContactByPhone)
+                        </td>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContactByEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateTimeSeen)
+                        </td>
+                        <td onclick="window.location.href = '@Url.Action("PhotoViewAdmin", "Admin", new { CarId = item.CarId})';">
+                            <div class="ui-button">@Html.DisplayFor(modelItem => item.CarId)</div>
+                        </td>
+
+                   </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+
+<br />
+<br />
+<div>
+    @Html.ActionLink("Home", "Index") || @Html.ActionLink("View All Vehicels", "ViewVehicelsFromDB")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

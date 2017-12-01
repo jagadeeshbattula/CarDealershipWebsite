@@ -1,0 +1,177 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model CarDealer.Models.ViewAppointments
+
+@{
+    ViewBag.Title = "ViewServiceApointemnts";
+}
+<style>
+    h2{
+        text-align:center;
+    }
+</style>
+<h2>View Service Apointemnts</h2>
+@if (TempData["Success"] != null)
+            {
+    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <p>View and Delete Vehicel Service Appointments from the below table.</p>
+        <div class="pull-right ui-button">
+            <a href="/Admin/AdminLogout">LOG OUT</a>
+        </div>
+        <br />
+        <hr />
+        <br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="table">
+                <table class="table">
+                    <tr>
+                        <th>
+                            DELETE A SCHEDULE
+                        </th>
+                        <th>
+                            @Html.DisplayName("Location Prefered")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Car Year")
+                        </th>
+                        <td>
+                            @Html.DisplayName("Car Make")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Car Model")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Shedule Date")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Shedule Time")
+                        </td>
+                        <td>
+                            @Html.DisplayName("First Name")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Last Name")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Email")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Phone")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Oil Change")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Tyre Services")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Brake Services")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Emmision Checkup")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Maintenance")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Electrical Services")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Heating/Cooling Services")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Battery Services")
+                        </td>
+                        <td>
+                            @Html.DisplayName("Fluid Flush")
+                        </td>
+
+                    </tr>
+
+                    @foreach (var item in Model.appointmnetsList)
+                {
+                        <tr>
+                            <td onclick="window.location.href = '@Url.Action("DeleteServiceAppointments", "Admin", new { AppointmentID = item.AppointmentID})';">
+                                <div class="alert-danger">DELETE</div>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LocationName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Year)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Make)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Model)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Time)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Phone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OilChange)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TyreServices)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BrakeServices)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmmisionCheckup)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Maintenance)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ElectricalServices)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HeatingCoolingServices)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BatteryServices)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FluidFlush)
+                            </td>
+
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+}
+<hr />
+<br />
+<br />
+<div>
+    @Html.ActionLink("Admin Home", "Index") ||
+</div>

@@ -1,0 +1,177 @@
+﻿@model CarDealer.Models.AddCarsToDB
+
+@{
+    ViewBag.Title = "AddVehicelToDatabase";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+<style>
+    h2{
+        text-align:center;
+    }
+</style>
+<h2>Add New Vehicel to DataBase</h2>
+
+@using (Html.BeginForm("AddVehicelToDatabase", "Admin", FormMethod.Post, new {enctype="multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="pull-right ui-button">
+        <a href="/Admin/AdminLogout">LOG OUT</a>
+    </div>
+    <br /><br />
+
+    <div class="container">
+        <div class="form-horizontal">
+
+            <hr />
+            <p class="ui-icon-bullet">Add a new vehicel to our online inventory using below form.</p>
+
+            <div class="form-group">
+                @Html.Label("Manufactered Year : ", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Year, new { @Class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Car Make :", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Make, new { @Class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.Make, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Car Model :", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Model, new { @Class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Price in USD $ :", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { @Class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Exterior Color :", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Color, new { @Class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("BodyStyle(sedan, suv, truck) :", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BodyStyle, new { @Class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.BodyStyle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Mpg(Miles per Gallon) :", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Mpg, new { @Class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.Mpg, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Drive Type :", new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.DriveType, new { @Class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.DriveType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Miles(place ZERO if new car) :", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Miles, new { @Class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.Miles, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("New or Used :", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NewOrUsed, new { @Class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.NewOrUsed, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Capacity :", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Capacity, new { @Class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Car ID(unique char/number for each car) :", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CarId, new { @Class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.CarId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="container">
+                <div class="form-group">
+                    @Html.Label("Main Photo(Upload vehicels main photo) :", new { @class = "col-md-2 control-label" })
+                    <div class="colmd-10">
+                        <input type="file" name="MainPhoto" id="MainPhoto" required="required" class="form" placeholder="Main Photo" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Photo 2 :", new { @class = "col-md-2 control-label" })
+                    <div class="colmd-10">
+                        <input type="file" name="Photo2" id="Photo2" required="required" class="form" placeholder="Photo 2" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Photo 3 :", new { @class = "col-md-2 control-label" })
+                    <div class="colmd-10">
+                        <input type="file" name="Photo3" id="Photo3" required="required" class="form" placeholder="Photo 3" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Photo 4 :", new { @class = "col-md-2 control-label" })
+                    <div class="colmd-10">
+                        <input type="file" name="Photo4" id="Photo4" required="required" class="form" placeholder="Photo 4" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Submit form" class="btn btn-default" />
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <hr>
+
+}
+
+<div>
+    @Html.ActionLink("Admin Home", "Index") || @Html.ActionLink("View Appointments", "ViewServiceApointemnts") ||
+</div>

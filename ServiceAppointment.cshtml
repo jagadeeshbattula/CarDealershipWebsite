@@ -1,0 +1,272 @@
+﻿@model CarDealer.Models.ServiceApointment
+
+@{
+    ViewBag.Title = "ServiceAppointment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryui")
+@Styles.Render("~/Content/cssjqryUi")
+
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+  
+@section Scripts {
+    <script>
+        $("#carmakeselected").change(function () {
+            if ($(this).data('options') === undefined) {
+                $(this).data('options', $('#carmodelselected option').clone());
+            }
+            var id = $(this).val();
+            var options = $(this).data('options').filter('[value=' + id + ']');
+            $('#carmodelselected').html(options);
+        });
+    </script>
+    <style>
+        h2{
+            text-align:center;
+        }
+    </style>
+}
+
+
+@using (Html.BeginForm("ServiceAppointment", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="page-header">
+            <h2>Book a Service Appointment</h2>
+        </div>
+        <hr />
+        <div class="container">
+            <h4>Choose on of your convinient Locations from below :-</h4>
+            <br />
+            @foreach (var item in Model.locations)
+            {
+                <div class="col-lg-4">
+                    @Html.RadioButtonFor(model => model.locationselected, item.LocationName)@Html.Label(item.LocationName)<br />
+                    @Html.Label(item.AddressLine1)<br />
+                    @Html.Label(item.AddressLine2)<br />
+                    @Html.Label(item.City)<br />
+                    @Html.Label(item.State) - @Html.Label(item.Zipcode)<br />
+                    @Html.Label(item.Country)<br />
+
+                </div>
+            }
+        </div>
+
+        <hr />
+        <hr />
+
+        <div class="container">
+            <h4>Select your vehicel & services prefered : -</h4>
+            <br />
+
+            <div class="form-group">
+                @Html.Label("Car Year :", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.caryearselected, Model.caryear)
+                    @Html.ValidationMessageFor(model => model.caryear, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.Label("Select make :", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+
+                    @Html.DropDownListFor(model => model.carmakeselected, new List<SelectListItem>
+               {
+                   new SelectListItem() {Text = "Audi", Value = "Audi" },
+                   new SelectListItem() {Text = "Bmw", Value = "Bmw" },
+                   new SelectListItem() {Text = "Chevrolet", Value = "Chevrolet" },
+                   new SelectListItem() {Text = "Dodge", Value = "Dodge" },
+                   new SelectListItem() {Text = "Ford", Value = "Ford" },
+                   new SelectListItem() {Text = "Honda", Value = "Honda" },
+                   new SelectListItem() {Text = "Hyundai", Value = "Hyundai" },
+                   new SelectListItem() {Text = "Jeep", Value = "Jeep" },
+                   new SelectListItem() {Text = "Benz", Value = "Benz" },
+                   new SelectListItem() {Text = "Nissan", Value = "Nissan" },
+                   new SelectListItem() {Text = "Suzuki", Value = "Suzuki" },
+                   new SelectListItem() {Text = "Toyota", Value = "Toyota" },
+                   new SelectListItem() {Text = "Volkswagon", Value = "Volkswagon" }
+
+               })
+                    @Html.ValidationMessageFor(model => model.carmakeselected, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Select Model :", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.carmodelselected, new List<SelectListItem>
+               {
+                    new SelectListItem() {Text = "A8", Value = "Audi" },
+                    new SelectListItem() {Text = "A6", Value = "Audi" },
+                    new SelectListItem() {Text = "A4", Value = "Audi" },
+                    new SelectListItem() {Text = "S8", Value = "Audi" },
+                    new SelectListItem() {Text = "S4", Value = "Audi" },
+
+                    new SelectListItem() {Text = "320i", Value = "Bmw" },
+                    new SelectListItem() {Text = "540i", Value = "Bmw" },
+                    new SelectListItem() {Text = "740", Value = "Bmw" },
+                    new SelectListItem() {Text = "M series", Value = "Bmw" },
+
+                    new SelectListItem() {Text = "Cruiz", Value = "Chevrolet" },
+                    new SelectListItem() {Text = "Prism", Value = "Chevrolet" },
+                    new SelectListItem() {Text = "Malibu", Value = "Chevrolet" },
+                    new SelectListItem() {Text = "Silvarado", Value = "Chevrolet" },
+                    new SelectListItem() {Text = "Venture", Value = "Chevrolet" },
+
+                    new SelectListItem() {Text = "Caravan", Value = "Dodge" },
+                    new SelectListItem() {Text = "Viper", Value = "Dodge" },
+                    new SelectListItem() {Text = "Dakota", Value = "Dodge" },
+                    new SelectListItem() {Text = "Van", Value = "Dodge" },
+
+                    new SelectListItem() {Text = "Escape", Value = "Ford" },
+                    new SelectListItem() {Text = "Explorer", Value = "Ford" },
+                    new SelectListItem() {Text = "Tarus", Value = "Ford" },
+                    new SelectListItem() {Text = "Focus", Value = "Ford" },
+
+                    new SelectListItem() {Text = "Accord", Value = "Honda" },
+                    new SelectListItem() {Text = "Oddise", Value = "Honda" },
+                    new SelectListItem() {Text = "CRV", Value = "Honda" },
+                    new SelectListItem() {Text = "Civic", Value = "Honda" },
+
+
+                    new SelectListItem() {Text = "Acent", Value = "Hyundai" },
+                    new SelectListItem() {Text = "Elentra", Value = "Hyundai" },
+                    new SelectListItem() {Text = "Sonata", Value = "Hyundai" },
+                    new SelectListItem() {Text = "Santa Fee", Value = "Hyundai" },
+
+                    new SelectListItem() {Text = "Compass", Value = "Jeep" },
+                    new SelectListItem() {Text = "Wrangler", Value = "Jeep" },
+
+                    new SelectListItem() {Text = "S series", Value = "Benz" },
+                    new SelectListItem() {Text = "E series", Value = "Benz" },
+                    new SelectListItem() {Text = "C series", Value = "Benz" },
+
+                    new SelectListItem() {Text = "Altima", Value = "Nissan" },
+                    new SelectListItem() {Text = "Centra", Value = "Nissan" },
+                    new SelectListItem() {Text = "Maxima", Value = "Nissan" },
+                    new SelectListItem() {Text = "Pathfinder", Value = "Nissan" },
+
+                    new SelectListItem() {Text = "Swift", Value = "Suzuki" },
+                    new SelectListItem() {Text = "Vitara", Value = "Suzuki" },
+                    new SelectListItem() {Text = "X series", Value = "Suzuki" },
+
+                    new SelectListItem() {Text = "Corolla", Value = "Toyota" },
+                    new SelectListItem() {Text = "Camery", Value = "Toyota" },
+                    new SelectListItem() {Text = "Echo", Value = "Toyota" },
+                    new SelectListItem() {Text = "Avalon", Value = "Toyota" },
+                    new SelectListItem() {Text = "Land Cruiser", Value = "Toyota" },
+
+                    new SelectListItem() {Text = "Jetta", Value = "Volkswagon" },
+                    new SelectListItem() {Text = "Passant", Value = "Volkswagon" },
+                    new SelectListItem() {Text = "Golf", Value = "Volkswagon" },
+                    new SelectListItem() {Text = "Van", Value = "Volkswagon" }
+
+               })
+                    @Html.ValidationMessageFor(model => model.carmodelselected, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Select services :", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+
+                    @Html.CheckBoxFor(model => model.oilChange)  @Html.LabelFor(model => model.oilChange, "Oil Change")<br />
+                    @Html.CheckBoxFor(model => model.tyreServices)  @Html.LabelFor(model => model.tyreServices, "Tyre Rotation/ Balancing/ Allignment")<br />
+                    @Html.CheckBoxFor(model => model.brakeservices)  @Html.LabelFor(model => model.brakeservices, "Replace / Adjust Brakes")<br />
+                    @Html.CheckBoxFor(model => model.emmisionCheckup)  @Html.LabelFor(model => model.emmisionCheckup, "Emmison test for DMV")<br />
+                    @Html.CheckBoxFor(model => model.maintenance)  @Html.LabelFor(model => model.maintenance, "Maintenance (Wipers, Headlights, Etc)")<br />
+                    @Html.CheckBoxFor(model => model.electricalServices)  @Html.LabelFor(model => model.electricalServices, "Electrical Service(Lights, Long beamers, Etc)")<br />
+                    @Html.CheckBoxFor(model => model.heatingCoolingServices)  @Html.LabelFor(model => model.heatingCoolingServices, "Heating and Colling services")<br />
+                    @Html.CheckBoxFor(model => model.batteryServices)  @Html.LabelFor(model => model.batteryServices, "Battery instaling testing, Etc")<br />
+                    @Html.CheckBoxFor(model => model.fluidFlush)  @Html.LabelFor(model => model.fluidFlush, "Tarnsmission fluids flush")
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Prefered date :", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input id="date" type="date" value="@DateTime.Now" name="date"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Prefered time :", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.timeselected, new List<SelectListItem> {
+                    new SelectListItem() {Text = "10:00 AM", Value = "10:00 AM" },
+                    new SelectListItem() {Text = "11:00 AM", Value = "11:00 AM" },
+                    new SelectListItem() {Text = "12:00 AM", Value = "12:00 AM" },
+                    new SelectListItem() {Text = "1:00 PM", Value = "1:00 PM" },
+                    new SelectListItem() {Text = "2:00 PM", Value = "2:00 PM" },
+                    new SelectListItem() {Text = "3:00 PM", Value = "3:00 PM" },
+                    new SelectListItem() {Text = "4:00 PM", Value = "4:00 PM" },
+               })
+                    @Html.ValidationMessageFor(model => model.timeintervals, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <hr />
+        <hr />
+
+        <div class="container">
+            <h4>Enter your contact information : -</h4>
+            <br />
+
+            <div class="form-group">
+                @Html.Label("First Name :", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.firstname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.firstname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Last Name :", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.lastname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.lastname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Email :", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="email" name="Email" id="Email" required="required" class="form" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Phone :", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit form" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to Home", "Index") || @Html.ActionLink("Contact", "Contact")
+</div>

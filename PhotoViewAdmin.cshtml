@@ -1,0 +1,155 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model CarDealer.Models.CarsData
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <style>
+        h2 {
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Full Vehicel details</h2>
+        <p>Scroll down to see more details</p>
+        <div class="pull-right ui-button">
+            <a href="/Admin/AdminLogout">LOG OUT</a>
+        </div>
+        <br />
+        <br />
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+
+                    @foreach (var item in Model.data)
+                    {
+                        var base64MainPhoto = Convert.ToBase64String(item.MainPhoto);
+                        var imgsrcMainPhoto = string.Format("data:image/gif;base64,{0}", base64MainPhoto);
+
+                        <img src="@imgsrcMainPhoto" alt="Main Photo" style="width:100%;">
+                    }
+                </div>
+
+                <div class="item">
+                    @foreach (var item in Model.data)
+                    {
+                        var base64Photo2 = Convert.ToBase64String(item.Photo2);
+                        var imgsrcPhoto2 = string.Format("data:image/gif;base64,{0}", base64Photo2);
+
+                        <img src="@imgsrcPhoto2" alt="Photo 2" style="width:100%;">
+                    }
+                </div>
+
+                <div class="item">
+
+                    @foreach (var item in Model.data)
+                    {
+                        var base64Photo3 = Convert.ToBase64String(item.Photo3);
+                        var imgsrcPhoto3 = string.Format("data:image/gif;base64,{0}", base64Photo3);
+
+                        <img src="@imgsrcPhoto3" alt="Photo 3" style="width:100%;">
+                    }
+                </div>
+
+                <div class="item">
+
+                    @foreach (var item in Model.data)
+                    {
+                        var base64Photo4 = Convert.ToBase64String(item.Photo4);
+                        var imgsrcPhoto4 = string.Format("data:image/gif;base64,{0}", base64Photo4);
+
+                        <img src="@imgsrcPhoto4" alt="Photo 4" style="width:100%;">
+                    }
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <br />
+    <hr />
+    <br />
+
+    @foreach (var item in Model.data)
+    {
+        <h3 class="text-center">Price : $@Html.DisplayFor(modelitem => item.Price)</h3>
+        <br />
+
+        <div class="row">
+            <div class="col-sm-6 text-center table-bordered" style="background-color:lavender;">Vehicel Manufactured Year : </div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:lavenderblush;">@Html.DisplayFor(modelitem => item.Year)</div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:burlywood;">Vehicel Make : </div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:cadetblue;">@Html.DisplayFor(modelitem => item.Make)</div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:lavender;">Vehicel Model : </div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:lavenderblush;">@Html.DisplayFor(modelitem => item.Model)</div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:burlywood;">Exterior Color : </div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:cadetblue;">@Html.DisplayFor(modelitem => item.Color)</div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:lavender;">Body Style : </div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:lavenderblush;">@Html.DisplayFor(modelitem => item.BodyStyle)</div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:burlywood;">Miles per Gallon : </div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:cadetblue;">@Html.DisplayFor(modelitem => item.Mpg)</div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:lavender;">Vehicel Drive Type : </div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:lavenderblush;">@Html.DisplayFor(modelitem => item.DriveType)</div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:burlywood;">New or Used : </div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:cadetblue;">@Html.DisplayFor(modelitem => item.NewOrUsed)</div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:lavender;">Miles on Vehicel : </div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:lavenderblush;">@Html.DisplayFor(modelitem => item.Miles)</div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:burlywood;">Vehicel Capacity : </div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:cadetblue;">@Html.DisplayFor(modelitem => item.Capacity)</div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:lavender;">Vehicel ID : </div>
+            <div class="col-sm-6 text-center table-bordered" style="background-color:lavenderblush;">@Html.DisplayFor(modelitem => item.CarId)</div>
+
+        </div>
+    }
+    <br />
+    <hr />
+    <br />
+    <br />
+</body>
+
+</html>
+
+<div>
+    @Html.ActionLink("Admin Home", "Index") || @Html.ActionLink("View Vehicels List", "ViewVehicelsFromDB") || @Html.ActionLink("View Customers List", "ViewCustomersDetails") ||
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

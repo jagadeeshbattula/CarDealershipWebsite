@@ -1,0 +1,55 @@
+﻿@model CarDealer.Models.Locations
+
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        h2{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Contact Page</h2>
+    <div class="container">
+        <p>Visit on of your nearest store to know more about the vehicels, quotes and test driving shedules. Or come in contact with below number or email id provided.</p>
+        <div class="panel-group">
+            @foreach (var item in Model.locationsdata)
+            {
+                <div class="panel panel-primary">
+                    <div class="panel-heading">@item.LocationName</div>
+                    <div class="panel-body">@item.AddressLine1, @item.AddressLine2, @item.City, @item.State - @item.Zipcode</div>
+                </div>
+            }
+            <br />
+            <hr />
+            <br />
+            <address style="font-size:larger">
+                <strong>Phone:</strong>
+                 203 JB DEALS (or) 203.5233257
+            </address>
+            <br />
+            <address style="font-size:large">
+                <strong>Sales:</strong>   sales@jbdealers.com<br />
+                <strong>Support:</strong> support@jbdeals.com<br />
+            </address>
+
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+<div>
+    @Html.ActionLink("Home", "Index") || @Html.ActionLink("About", "About") ||
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

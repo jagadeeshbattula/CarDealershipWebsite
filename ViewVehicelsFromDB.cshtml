@@ -1,0 +1,141 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model CarDealer.Models.CarsData
+
+@{
+    ViewBag.Title = "ViewVehicelsFromDB";
+}
+<style>
+    h2{
+        text-align:center;
+    }
+</style>
+<h2>View Vehicels in Database</h2>
+@if (TempData["Success"] != null)
+            {
+    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <p>View all the vehicels from Database. Click on the buttons provided to edit, delete and see details.</p>
+        <div class="pull-right ui-button">
+            <a href="/Admin/AdminLogout">LOG OUT</a>
+        </div>
+        <br />
+        <hr />
+        <br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayName("Car Year")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Car Make")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Car Model")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Price")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Exterior Color")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Body Style")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Miles per gallon")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Drive Type")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Miles")
+                    </th>
+                    <th>
+                        @Html.DisplayName("New or Used")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Capacity")
+                    </th>
+                    <th>
+                        @Html.DisplayName("CarId")
+                    </th>
+                    
+                </tr>
+
+                @foreach (var item in Model.data)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Year)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Make)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Model)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Color)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BodyStyle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mpg)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DriveType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Miles)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NewOrUsed)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Capacity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CarId)
+                        </td>
+                        <td onclick="window.location.href = '@Url.Action("PhotoViewAdmin", "Admin", new { CarId = item.CarId})';">
+                            <div class="alert-info">Details</div>
+                        </td>
+                        
+                        <td onclick="window.location.href = '@Url.Action("Deletevehicel", "Admin", new { CarId = item.CarId})';">
+                            <div class="alert-danger">DELETE</div>
+                        </td>
+                        <td onclick="window.location.href = '@Url.Action("EditVehicelInfo", "Admin", new { Year = item.Year, Make = item.Make, Model = item.Model, Price = item.Price, Color = item.Color, BodyStyle = item.BodyStyle, Mpg = item.Mpg, Drivetype = item.DriveType, Miles = item.Miles, NewOrUsed = item.NewOrUsed, Capacity = item.Capacity, CarId = item.CarId, MainPhoto = item.MainPhoto, Photo2 = item.Photo2, Photo3 = item.Photo3, Photo4 = item.Photo4})';">
+                            <div class="alert-link">Edit</div>
+                        </td>
+                    </tr>
+                    
+                }
+            </table>
+
+        </div>
+    </div>
+}
+<br />
+<div>
+    @Html.ActionLink("Admin Home", "Index") || @Html.ActionLink("Add New Vehicel", "AddVehicelToDatabase")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

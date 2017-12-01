@@ -1,0 +1,130 @@
+﻿@model CarDealer.Models.UsedCarModel
+
+@{
+    ViewBag.Title = "UsedCarInventory";
+}
+
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@section Scripts{
+    <script>
+        $(function () {
+            // write change event for the drop down and submit the form
+            $("#carmakeselected").css({ 'background-color': '#4499ee', 'color': 'yellow' });
+            $("#carmakeselected").change(function () {
+                $(this).closest('form').submit();  // go back to web server - submit the form
+            });
+            $("#caryearselected").change(function () {
+                $(this).closest('form').submit();  // go back to web server - submit the form
+            });
+        });
+    </script>
+<style>
+    h2 {
+        text-align: center;
+    }
+
+    img {
+        border: dashed;
+    }
+
+    h3 {
+        text-align: center;
+    }
+    p{
+        text-align: center;
+    }
+</style>
+    }
+
+@using (Html.BeginForm())
+{
+    <h2>Our Used Car Inventory</h2>
+    <p>Click on any vehicel you like to expand the details</p>
+    <div class="container">
+        <div class="col-lg-9">
+            <div class="panel">
+                <div class="panel-body">
+                    @foreach (var item in Model.carsdata)
+                    {
+                        <div class="col-lg-4" onclick="window.location.href = '@Url.Action("PhotoView", "Home", new { CarId = item.CarId})';">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>Year : </td>
+                                        <td>@Html.DisplayFor(modelItem => item.Year)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Make : </td>
+                                        <td>@Html.DisplayFor(modelItem => item.Make)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Model : </td>
+                                        <td>@Html.DisplayFor(modelItem => item.Model)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Price : </td>
+                                        <td>$ @Html.DisplayFor(modelItem => item.Price)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Color : </td>
+                                        <td>@Html.DisplayFor(modelItem => item.Color)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Body Style : </td>
+                                        <td>@Html.DisplayFor(modelItem => item.BodyStyle)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>MPG : </td>
+                                        <td>@Html.DisplayFor(modelItem => item.Mpg)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Drive Type : </td>
+                                        <td>@Html.DisplayFor(modelItem => item.DriveType)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Capacity : </td>
+                                        <td>@Html.DisplayFor(modelItem => item.Capacity)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Car ID : </td>
+                                        <td>@Html.DisplayFor(modelItem => item.CarId)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            @{
+                                var base64 = Convert.ToBase64String(item.MainPhoto);
+                                var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                            }
+                            <img src="@imgsrc" width="200" height="150" />
+                            <hr /><hr />
+                        </div>
+                                }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <h3>Filter your results: -</h3>
+            <div class="col-md-8">
+                @Html.LabelFor(item => item.carmakeselected, "Car Make : ")
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(item => item.carmakeselected, Model.carmakes)
+            </div>
+            <br /><br />
+            <div class="col-md-8">
+                @Html.LabelFor(item => item.caryearselected, "Car YEAR : ")
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(item => item.caryearselected, Model.caryears)
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to Home", "Index") || @Html.ActionLink("View New Vehicels Inventory", "NewCarInventory")
+    </div>
+ }

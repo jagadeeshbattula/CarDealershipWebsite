@@ -1,0 +1,73 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<head>
+    <style>
+        h2{
+            text-align:center;
+        }
+        h3{
+            text-align:center;
+        }
+        span{
+            font-size:xx-large;
+        }
+    </style>
+</head>
+<body>
+    @if (TempData["Success"] != null)
+            {
+        <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+    }
+    <h2>JB-Dealers Inc</h2>
+    <h2>Hi @ViewData["uname"], welcome to the Admin view.</h2>
+    <hr />
+    <div class="pull-right ui-button">
+        <a href="/Admin/AdminLogout">LOG OUT</a>
+    </div>
+    <br />
+    <br />
+    <div class="well">
+        <p>You can manage the DataBase and update the stock of inventory using the Admin view. Make sure the password and username are secured. Choose one of the following actions to proced further. You must be logged in inorder to access the DataBase and inventory.</p>
+    </div>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-4">
+                <span>Inventory</span>
+            </div>
+            <div class="col-lg-4">
+                <span>Service Appointments</span>
+            </div>
+            <div class="col-lg-4">
+                <span>Others</span>
+            </div>
+        </div>
+        <div class="row text-center alert-info">
+            <div class="col-lg-4">
+                <a href="/Admin/AddVehicelToDatabase" style="font-size:medium" class="ui-button">Add new vehicel to Database</a>
+            </div>
+            <div class="col-lg-4">
+                <a href="/Home/ServiceAppointment" style="font-size:medium" class="ui-button">Create new Appointment</a>
+            </div>
+            <div class="col-lg-4">
+                <a href="/Admin/ViewCustomersDetails" style="font-size:medium" class="ui-button">View Viewers Details</a>
+            </div>  
+        </div>
+        <div class="row text-center alert-success">
+            <div class="col-lg-4">
+                <a href="/Admin/ViewVehicelsFromDB" style="font-size:medium" class="ui-button">View vehicel from DataBase</a>
+            </div>
+            <div class="col-lg-4">
+                <a href="/Admin/ViewServiceApointemnts" style="font-size:medium" class="ui-button">View Service Appointments</a>
+            </div>
+            <div class="col-lg-4">
+                <a href="/Home/Index" style="font-size:medium" class="ui-button">User Home Page</a>
+            </div>
+        </div>
+        <br />
+        <hr />
+        <br />
+
+    </div>
+</body>
